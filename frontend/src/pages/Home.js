@@ -10,7 +10,8 @@ function Home() {
                     <img src={logoHome}/>
                 </header>
                 <div>
-                    <button className='button'>Search</button>
+                    <input type='text' placeholder='Search movies...' className='input'/>
+                    <button className='buttonSearch'>Search</button>
                 </div>
                 <div>
                     <button className='button'>Comedy</button>
@@ -20,6 +21,8 @@ function Home() {
                     <button className='button'>Horror</button>
                     <button className='button'>Mystery</button>
                     <button className='button'>Sci-fi</button>
+                    <button className='button'>Animation</button>
+                    <button className='button'>Fantasy</button>
                 </div>
             </div>
         </main>

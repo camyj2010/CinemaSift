@@ -8,6 +8,19 @@ main {
     position: relative;
 }
 
+.buttonSearch {
+    background-color: rgba(248, 246, 246, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
 
 .button {
     background-color: rgba(248, 246, 246, 0.1);
@@ -16,8 +29,9 @@ main {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    width: 100px;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -39,11 +53,26 @@ main {
 
 .header {
     display: flex;
-    justify-content: flex-start; /* Cambiado de 'center' a 'flex-start' para alinear el contenido a la izquierda */;
-    padding: 5px; 
+    justify-content: flex-start;
+    /* Cambiado de 'center' a 'flex-start' para alinear el contenido a la izquierda */
+    ;
+    padding: 5px;
     padding-top: 1rem;
 }
 
+.input {
+    background-color: transparent;
+    border-color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 600px;
+}
+
 .logo {
-    width: 1500px; /* Ajusta el tamaño del logotipo según sea necesario */
+    width: 1500px;
+    /* Ajusta el tamaño del logotipo según sea necesario */
 }
