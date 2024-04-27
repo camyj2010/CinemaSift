@@ -1,0 +1,49 @@
+main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: inherit;
+    position: relative;
+}
+
+
+.button {
+    background-color: rgba(248, 246, 246, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
+.content {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #0F1632, #2E4398);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start; /* Cambiado de 'center' a 'flex-start' para alinear el contenido a la izquierda */;
+    padding: 5px; 
+    padding-top: 1rem;
+}
+
+.logo {
+    width: 1500px; /* Ajusta el tamaño del logotipo según sea necesario */
+}
