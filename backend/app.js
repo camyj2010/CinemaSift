@@ -1,13 +1,16 @@
 // app.js
 import express from 'express';
-import { openWebPage } from './scraping/rottenTomatoes.js';
+import { openWebPageT } from './scraping/rottenTomatoes.js'; 
+import {openWebPageL} from './scraping/letterboxd.js';
+
 const app = express();
 
 // Ruta de ejemplo
 
 app.get('/', async (req, res) => {
     try {
-        await openWebPage();
+        //await openWebPageT();
+        await openWebPageL();
         res.send('¡Hola mundo desde Express!');
     } catch (err) {
         console.error(err);

@@ -20,7 +20,7 @@ async function getTextContentOrDefault(page, selector, defaultValue = null, time
         return defaultValue;
     }
 }
-export async function openWebPage() {
+export async function openWebPageT() {
     const browser = await puppeteer.launch({
         headless: false,
         slowMo: 200,
