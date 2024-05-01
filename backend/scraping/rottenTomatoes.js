@@ -20,15 +20,14 @@ async function getTextContentOrDefault(page, selector, defaultValue = null, time
         return defaultValue;
     }
 }
-export async function openWebPageT() {
+export async function openWebPageT(name) {
     const browser = await puppeteer.launch({
-        headless: false,
-        slowMo: 200,
+        headless: true
     });
 
     const page = await browser.newPage();
     await page.goto("https://www.rottentomatoes.com");
-    await page.type('[data-qa="search-input"]', 'The Chronicles of Narnia: The Voyage of the Dawn Treader');
+    await page.type('[data-qa="search-input"]', name);
     await page.keyboard.press('Enter');
 
     // Esperar a que el primer elemento de la lista esté disponible
@@ -40,10 +39,11 @@ export async function openWebPageT() {
 
     // Wait for the audience score element
     const audienceScoreSelector = 'rt-button[slot="audienceScore"] rt-text';
+    await page.waitForSelector(audienceScoreSelector);
     const rtTextContent = await getTextContentOrDefault(page, audienceScoreSelector, null, 30000);
 
     
-    console.log('Contenido de rt-text:', rtTextContent);
+    console.log('rotten Tomatoes', rtTextContent);
  
      await browser.close();
  }
