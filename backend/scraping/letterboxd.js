@@ -1,18 +1,17 @@
 import puppeteer from 'puppeteer';
 
-export async function openWebPageM() {
+export async function openWebPageL(name) {
     const browser = await puppeteer.launch({
-        headless: false,
-        slowMo: 200,
+        headless: 'new'
     });
 
     const page = await browser.newPage();
-    await page.goto("https://letterboxd.com", { timeout: 60000 }); // 60 segundos de tiempo de espera
+    await page.goto("https://letterboxd.com"); // 60 segundos de tiempo de espera
 
-    console.log('Buscando1...');
     
-    await page.type('input#search-q', 'The Chronicles of Narnia: The Voyage of the Dawn Treader');
-    console.log('Buscando2...');
+    
+    await page.type('input#search-q', name);
+    
 
     await page.keyboard.press('Enter');
     const firstResultSelector = 'ul.results li:first-child .react-component.poster .image';
@@ -25,7 +24,7 @@ export async function openWebPageM() {
     // Obtiene el texto dentro del elemento <a> dentro del elemento con la clase "average-rating"
     const rating = await page.$eval('.average-rating a', element => element.textContent);
 
-    console.log(rating);
+    console.log("letterboxd",rating);
 
 
     await browser.close();
