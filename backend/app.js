@@ -1,7 +1,7 @@
 // app.js
 import express from 'express';
 import { openWebPageT } from './scraping/rottenTomatoes.js'; 
-import {openWebPageM} from './scraping/metacritic.js';
+import {openWebPageL} from './scraping/letterboxd.js';
 
 const app = express();
 
@@ -10,7 +10,7 @@ const app = express();
 app.get('/', async (req, res) => {
     try {
         //await openWebPageT();
-        await openWebPageM();
+        await openWebPageL();
         res.send('¡Hola mundo desde Express!');
     } catch (err) {
         console.error(err);
