@@ -1,0 +1,7 @@
+###Home
+GET http://localhost:3001/
+Content-Type: application/json
+
+###Search by name
+GET http://localhost:3001/challengers
+Content-Type: application/json

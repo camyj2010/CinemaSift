@@ -76,3 +76,34 @@ main {
     width: 1500px;
     /* Ajusta el tamaño del logotipo según sea necesario */
 }
+.card {
+    width: 170px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-left: 55px;
+    margin-right: 5px;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin-top: 2px;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 1px;
+    text-align: center;
+}
+
+.card-container {
+    display: flex; /* Muestra las tarjetas en línea */
+    flex-direction: row; /* Cambia la dirección del flexbox a horizontal */
+    flex-wrap: nowrap; /* Evita que las tarjetas se envuelvan a la siguiente fila */
+    overflow-x: auto; /* Agrega un scroll horizontal si las tarjetas no caben en el contenedor */
+}

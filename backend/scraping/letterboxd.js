@@ -24,9 +24,10 @@ export async function openWebPageL(name) {
     // Obtiene el texto dentro del elemento <a> dentro del elemento con la clase "average-rating"
     const rating = await page.$eval('.average-rating a', element => element.textContent);
 
-    console.log("letterboxd",rating);
+    // console.log("letterboxd",rating);
 
 
     await browser.close();
+    return rating;
 
 }

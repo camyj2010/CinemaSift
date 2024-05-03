@@ -27,7 +27,8 @@ export async function openWebPageI(name) {
     // Obtener el rating del elemento
     const rating = await page.$eval('[data-testid="hero-rating-bar__aggregate-rating__score"]', element => element.textContent.trim());
 
-    console.log("Imdb ", rating);
+    // console.log("Imdb ", rating);
 
     await browser.close();
+    return rating;
 }
