@@ -27,7 +27,7 @@ export async function ImagesHome() {
     });
 
     const page = await browser.newPage();
-    await page.goto("https://www.rottentomatoes.com");
+    await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
 
     // Esperar a que los elementos deseados estén disponibles en el DOM
     await page.waitForSelector('.dynamic-poster-list');
@@ -65,7 +65,7 @@ export async function openWebPageT(name) {
 
     const itemsArray = []
     const page = await browser.newPage();
-    await page.goto("https://www.rottentomatoes.com");
+    await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
     await page.type('[data-qa="search-input"]', name);
     await page.keyboard.press('Enter');
 
@@ -101,7 +101,7 @@ export async function searchName(name) {
 
     const itemsArray = []
     const page = await browser.newPage();
-    await page.goto("https://www.rottentomatoes.com");
+    await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
     await page.type('[data-qa="search-input"]', name);
     await page.keyboard.press('Enter');
 
@@ -122,7 +122,7 @@ export async function searchName(name) {
 
 export async function searchGenre(genre) {
     const browser = await puppeteer.launch({
-        headless: false
+        headless: true
 
     });
     let url;
@@ -158,37 +158,35 @@ export async function searchGenre(genre) {
     }
 
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, { timeout: 60000 });
 
-    const itemsArray = []
       // Extraer los primeros 10 elementos de la lista
     const elements = await page.$$eval('.flex-container', elements => {
-        return elements.slice(0, 6).map(element => {
+        return elements.slice(0, 10).map(element => {
             const title = element.querySelector('.p--small').textContent.trim();
             const imageSrc = element.querySelector('.posterImage').getAttribute('src');
         return { title, imageSrc };
         });
     });
-
-  console.log(elements);
-
     // const data = await page.evaluate(() => {
     //     const itemsArray = [];
-    //     const carouselItems = document.querySelectorAll('.discovery-tiles__wrap');
+    //     const carouselItems = document.querySelectorAll('.dynamic-poster-list tiles-carousel-responsive-item-deprecated.visible');
 
     //     carouselItems.forEach((item, index) => {
     //         if (index < 5) { // Solo queremos los primeros 5 elementos
-    //             const title = item.querySelector('watchlist-button[mediatitle=] .p--small').innerText.trim();
+    //             const title = item.querySelector('a[slot="caption"] .p--small').innerText.trim();
     //             const imageSrc = item.querySelector('rt-img[slot="image"]').getAttribute('src');
     //             itemsArray.push({ title, imageSrc });
     //         }
     //     });
 
-    // return itemsArray;
+  console.log(elements);
+
     
 
     // Cerrar el navegador
     await browser.close();
+    return elements;
 
 }
 

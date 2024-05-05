@@ -7,6 +7,8 @@ import { FaStar } from "react-icons/fa";
 import { GiTomato } from "react-icons/gi";
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
+
 
 
 import { useLocation, useParams } from 'react-router-dom';
@@ -22,6 +24,7 @@ function Movie() {
     const [ratingI, setratingI] = useState([]);
     const [description, setDescription] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState(''); 
     // Aquí defines la variable override
     const override = css`
         display: block;
@@ -71,19 +74,45 @@ function Movie() {
                     <img src={logoHome} alt="logo" />
                 </header>
                 <div>
-                    <input type='text' placeholder='Search movies...' className='input' />
-                    <button className='buttonSearch'>Search</button>
+                    <input 
+                        type='text' 
+                        placeholder='Search movies...' 
+                        className='input' 
+                        value={searchInput} // Asigna el valor del estado al input
+                        onChange={(e) => setSearchInput(e.target.value)} // Actualiza el estado cuando el input cambia
+                    />
+                    <Link to={ "/"} state= {{genre:null, movie: searchInput }}>
+                        <button className='buttonSearch'>Search</button>
+                    </Link>
                 </div>
                 <div>
-                    <button className='button'>Comedy</button>
-                    <button className='button'>Drama</button>
-                    <button className='button'>Action</button>
+                    <Link to={ "/"} state= {{ genre:"Comedy", movie: null }}>
+                        <button className='button'>Comedy</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Drama", movie: null  }}>
+                        <button className='button'>Drama</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Action", movie: null  }}>
+                        <button className='button'>Action</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Romance", movie: null  }}>
                     <button className='button'>Romance</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Horror", movie: null  }}>
                     <button className='button'>Horror</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Mystery", movie: null  }}>
                     <button className='button'>Mystery</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Sci-fi", movie: null  }}>
                     <button className='button'>Sci-fi</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Animation", movie: null  }}>
                     <button className='button'>Animation</button>
+                    </Link>
+                    <Link to={ "/"} state= {{ genre:"Fantasy", movie: null  }}>
                     <button className='button'>Fantasy</button>
+                    </Link>
                 </div>
                 <div className='movie-details-container'>
                     <div className='movie-details'>

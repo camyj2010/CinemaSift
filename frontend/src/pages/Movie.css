@@ -86,14 +86,14 @@ main {
 }
 .movie-details {
     /* Estilos para los detalles de la película */
-    margin-top: 2rem;
+    margin-top: 1rem;
     color: white;
 
 
 }
 
 .movie-details h1 {
-    font-size: 2rem;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
 }
 
