@@ -1,0 +1,116 @@
+main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: inherit;
+    position: relative;
+}
+
+.buttonSearch {
+    background-color: rgba(248, 246, 246, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.button {
+    background-color: rgba(248, 246, 246, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    font-size: 1rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
+.content {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #0F1632, #2E4398);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    /* Cambiado de 'center' a 'flex-start' para alinear el contenido a la izquierda */
+    ;
+    padding: 5px;
+    padding-top: 1rem;
+}
+
+.input {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 600px;
+}
+
+.logo {
+    width: 1500px;
+    /* Ajusta el tamaño del logotipo según sea necesario */
+}
+.card {
+    width: 170px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-left: 55px;
+    margin-right: 5px;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin-top: 2px;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 1px;
+    text-align: center;
+}
+
+.card-container {
+    display: flex; /* Muestra las tarjetas en línea */
+    flex-direction: row; /* Cambia la dirección del flexbox a horizontal */
+    flex-wrap: nowrap; /* Evita que las tarjetas se envuelvan a la siguiente fila */
+    overflow-x: auto; /* Agrega un scroll horizontal si las tarjetas no caben en el contenedor */
+}
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
