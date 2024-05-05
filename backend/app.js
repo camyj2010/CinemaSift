@@ -1,6 +1,6 @@
 // app.js
 import express from 'express';
-import { openWebPageT, ImagesHome } from './scraping/rottenTomatoes.js'; 
+import { openWebPageT, ImagesHome, searchName, searchGenre} from './scraping/rottenTomatoes.js'; 
 import {openWebPageL} from './scraping/letterboxd.js';
 import {openWebPageI} from './scraping/imdb.js';
 import cors from 'cors';
@@ -20,7 +20,7 @@ app.get('/', async (req, res) => {
 });
 app.get('/:name', async (req, res) => {
     const name=req.params.name
-    console.log(name)
+    // console.log(name)
     
     const list = []
     list.push(await openWebPageT(name));
@@ -32,6 +32,25 @@ app.get('/:name', async (req, res) => {
 
 })
 
+app.get('/search/:name', async (req, res) => {
+    const name=req.params.name;
+    // console.log(name)
+    const response= await searchName(name);
+
+    res.json(response);
+
+
+})
+
+app.get('/search-genre/:genre', async (req, res) => {
+    const genre=req.params.genre;
+    // console.log(name)
+    const response= await searchGenre(genre);
+
+    res.json(response);
+
+
+})
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3001;

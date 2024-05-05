@@ -1,18 +1,30 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
 import logoHome from '../assets/logo.png';
-import { homePageF } from '../routes/service';
+import { homePageF, movieSearch} from '../routes/service';
+import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { BeatLoader } from 'react-spinners';
+
+
+
 
 
 // Componente de tarjeta
 function Card({ title, image }) {
     return (
-        <div className='card'>
-            <img src={image} alt={title} />
-            <h3>{title}</h3>
-        </div>
+        <Link to={title
+        }
+            state={{ image }}>
+            <div className='card'>
+                <img src={image} alt={title} />
+                <h3>{title}</h3>
+            </div>
+        </Link>
     );
 }
+
+
 
 
 
@@ -20,6 +32,13 @@ function Home() {
 
     // Estado para almacenar los datos de las tarjetas
     const [cardsData, setCardsData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState(''); 
+    const override = css`
+        display: block;
+        margin: 0 auto;
+    `;
+
 
     // Simula una llamada a la API para obtener los datos
     useEffect(() => {
@@ -31,6 +50,7 @@ function Home() {
                 if (Array.isArray(movies)) {
                     // Asignar los datos al estado
                     setCardsData(movies);
+                    setIsLoading(false);
                 } else {
                     console.error('Los datos recibidos no son un array:', movies);
                 }
@@ -42,6 +62,17 @@ function Home() {
         fetchData(); // Llamar a la función para obtener los datos
     }, []);
 
+    const handleSearch = async () => {
+        try {
+            setIsLoading(true);
+            const searchResult = await movieSearch(searchInput); // Invoca la función movieSearch con el valor del input
+            setCardsData(searchResult);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error al realizar la búsqueda:', error.message);
+            setIsLoading(false);
+        }
+    };
 
     return (
         <main className='main'>
@@ -50,8 +81,14 @@ function Home() {
                     <img src={logoHome} />
                 </header>
                 <div>
-                    <input type='text' placeholder='Search movies...' className='input' />
-                    <button className='buttonSearch'>Search</button>
+                    <input 
+                        type='text' 
+                        placeholder='Search movies...' 
+                        className='input' 
+                        value={searchInput} // Asigna el valor del estado al input
+                        onChange={(e) => setSearchInput(e.target.value)} // Actualiza el estado cuando el input cambia
+                    />
+                    <button className='buttonSearch' onClick={handleSearch}>Search</button> {/* Invoca la función handleSearch al hacer clic */}
                 </div>
                 <div>
                     <button className='button'>Comedy</button>
@@ -64,11 +101,20 @@ function Home() {
                     <button className='button'>Animation</button>
                     <button className='button'>Fantasy</button>
                 </div>
-                <div className='card-container'>
-                    {cardsData.map((card, index) => (
-                        <Card key={index} title={card.title} image={card.imageSrc} />
-                    ))}
-                </div>
+                {isLoading ? (
+                    <div className="loader-container">
+                        <BeatLoader color={"#fff"} loading={isLoading} css={override} size={40} />
+                    </div>
+                ) : (
+                    <>
+                        <div className='card-container'>
+                            {cardsData.map((card, index) => (
+                                <Card key={index} title={card.title} image={card.imageSrc} />
+                            ))}
+
+                        </div>
+                    </>
+                )}
             </div>
         </main>
     );
