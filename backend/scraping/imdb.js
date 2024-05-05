@@ -11,7 +11,8 @@ export async function openWebPageI(name) {
     });
 
     const page = await browser.newPage();
-    await page.goto("https://www.imdb.com"); // 60 segundos de tiempo de espera
+    await page.goto("https://www.imdb.com", { timeout: 60000 }); // 60 segundos de tiempo de espera
+    // await new Promise(resolve => setTimeout(resolve, 60000)); 
     await page.waitForSelector('.imdb-header-search__input');
     await page.type('.imdb-header-search__input', name);
     await page.keyboard.press('Enter');
@@ -27,7 +28,8 @@ export async function openWebPageI(name) {
     // Obtener el rating del elemento
     const rating = await page.$eval('[data-testid="hero-rating-bar__aggregate-rating__score"]', element => element.textContent.trim());
 
-    console.log("Imdb ", rating);
+    // console.log("Imdb ", rating);
 
     await browser.close();
+    return rating;
 }

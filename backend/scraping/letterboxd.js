@@ -6,9 +6,8 @@ export async function openWebPageL(name) {
     });
 
     const page = await browser.newPage();
-    await page.goto("https://letterboxd.com"); // 60 segundos de tiempo de espera
-
-    
+    await page.goto("https://letterboxd.com", { timeout: 60000 }); // 60 segundos de tiempo de espera
+    // await new Promise(resolve => setTimeout(resolve, 60000)); 
     
     await page.type('input#search-q', name);
     
@@ -24,9 +23,10 @@ export async function openWebPageL(name) {
     // Obtiene el texto dentro del elemento <a> dentro del elemento con la clase "average-rating"
     const rating = await page.$eval('.average-rating a', element => element.textContent);
 
-    console.log("letterboxd",rating);
+    // console.log("letterboxd",rating);
 
 
     await browser.close();
+    return rating;
 
 }
