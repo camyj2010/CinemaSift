@@ -1,23 +1,56 @@
 // app.js
 import express from 'express';
-import { openWebPageT } from './scraping/rottenTomatoes.js'; 
+import { openWebPageT, ImagesHome, searchName, searchGenre} from './scraping/rottenTomatoes.js'; 
 import {openWebPageL} from './scraping/letterboxd.js';
+import {openWebPageI} from './scraping/imdb.js';
+import cors from 'cors';
 
 const app = express();
-
+app.use(cors());
 // Ruta de ejemplo
 
 app.get('/', async (req, res) => {
     try {
-        //await openWebPageT();
-        await openWebPageL();
-        res.send('¡Hola mundo desde Express!');
+        const data = await ImagesHome(); // Llama a la función para obtener la data
+        res.json(data); // Envía la data como respuesta JSON
     } catch (err) {
         console.error(err);
         res.status(500).send('Error interno del servidor');
     }
 });
+app.get('/:name', async (req, res) => {
+    const name=req.params.name
+    // console.log(name)
+    
+    const list = []
+    list.push(await openWebPageT(name));
+    list.push(await openWebPageL(name));
+    list.push(await openWebPageI(name));
+    console.log(list)
+    res.json(list);
 
+
+})
+
+app.get('/search/:name', async (req, res) => {
+    const name=req.params.name;
+    // console.log(name)
+    const response= await searchName(name);
+
+    res.json(response);
+
+
+})
+
+app.get('/search-genre/:genre', async (req, res) => {
+    const genre=req.params.genre;
+    // console.log(name)
+    const response= await searchGenre(genre);
+
+    res.json(response);
+
+
+})
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3001;

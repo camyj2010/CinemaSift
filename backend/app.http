@@ -1,0 +1,15 @@
+###Home
+GET http://localhost:3001/
+Content-Type: application/json
+
+###Search all information
+GET http://localhost:3001/challengers
+Content-Type: application/json
+
+###Search by name
+GET http://localhost:3001/search/challengers
+Content-Type: application/json
+
+###Search by name
+GET http://localhost:3001/search-genre/Comedy
+Content-Type: application/json
