@@ -158,11 +158,11 @@ export async function searchGenre(genre) {
     }
 
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, { timeout: 60000 });
 
       // Extraer los primeros 10 elementos de la lista
     const elements = await page.$$eval('.flex-container', elements => {
-        return elements.slice(0, 6).map(element => {
+        return elements.slice(0, 10).map(element => {
             const title = element.querySelector('.p--small').textContent.trim();
             const imageSrc = element.querySelector('.posterImage').getAttribute('src');
         return { title, imageSrc };
