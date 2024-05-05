@@ -1,7 +1,7 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
 import logoHome from '../assets/logo.png';
-import { homePageF, movieSearch} from '../routes/service';
+import { homePageF, movieSearch, genreSearch} from '../routes/service';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
@@ -74,6 +74,19 @@ function Home() {
         }
     };
 
+    const handleGenreSearch = async (genre) => {
+        try {
+            setIsLoading(true);
+            const searchResult = await genreSearch(genre); // Invoca la función genreSearch con el valor del input
+            console.log(searchResult);
+            setCardsData(searchResult);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error al realizar la búsqueda:', error.message);
+            setIsLoading(false);
+        }
+    }
+
     return (
         <main className='main'>
             <div className='content'>
@@ -91,15 +104,15 @@ function Home() {
                     <button className='buttonSearch' onClick={handleSearch}>Search</button> {/* Invoca la función handleSearch al hacer clic */}
                 </div>
                 <div>
-                    <button className='button'>Comedy</button>
-                    <button className='button'>Drama</button>
-                    <button className='button'>Action</button>
-                    <button className='button'>Romance</button>
-                    <button className='button'>Horror</button>
-                    <button className='button'>Mystery</button>
-                    <button className='button'>Sci-fi</button>
-                    <button className='button'>Animation</button>
-                    <button className='button'>Fantasy</button>
+                    <button className='button' onClick={() => handleGenreSearch("Comedy")}>Comedy</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Drama")}>Drama</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Action")}>Action</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Romance")}>Romance</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Horror")}>Horror</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Mystery")}>Mystery</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Sci-fi")}>Sci-fi</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Animation")}>Animation</button>
+                    <button className='button' onClick={() =>handleGenreSearch("Fantasy")}>Fantasy</button>
                 </div>
                 {isLoading ? (
                     <div className="loader-container">

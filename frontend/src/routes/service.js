@@ -42,3 +42,18 @@ export const movieSearch = async (name) => {
         console.error('Error:', error.message);
     }
 }
+
+export const genreSearch = async (name) => {
+    try {
+        const response = await fetch(`${backendserver}/search-genre/${name}`);
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            return data;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+}
