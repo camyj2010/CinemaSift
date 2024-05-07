@@ -5,7 +5,7 @@ dotenv.config();
 const dbconnect = async () => {
     try {
         console.log("inicio bd")
-        await mongoose.connect(`mongodb+srv://valerymolina:olimpo@cluster0.e3w4d4x.mongodb.net/cinemasift `);
+        await mongoose.connect(process.env.MONGO);
         console.log("Conexión correcta a la base de datos");
     } catch (error) {
         console.error("Error de conexión a la base de datos:", error.message);

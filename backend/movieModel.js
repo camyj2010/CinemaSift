@@ -14,11 +14,11 @@ const moviesSchema = new mongoose.Schema(
         rating: {
             type: [
                 [
-                    { type: String }, // Cadena de texto
-                    { type: String }  // Número
+                    { type: String }, 
+                    { type: String }  
                 ],
-                { type: String },      // Número
-                { type: String }       // Cadena de texto
+                { type: String },      
+                { type: String }       
             ]
         }
     },

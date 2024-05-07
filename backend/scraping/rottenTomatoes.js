@@ -38,7 +38,7 @@ export async function ImagesHome() {
         const carouselItems = document.querySelectorAll('.dynamic-poster-list tiles-carousel-responsive-item-deprecated.visible');
 
         carouselItems.forEach((item, index) => {
-            if (index < 5) { // Solo queremos los primeros 5 elementos
+            if (index < 6) { // Solo queremos los primeros 5 elementos
                 const title = item.querySelector('a[slot="caption"] .p--small').innerText.trim();
                 const imageSrc = item.querySelector('rt-img[slot="image"]').getAttribute('src');
                 itemsArray.push({ title, imageSrc });
@@ -78,7 +78,7 @@ export async function openWebPageT(name) {
 
     // Wait for the audience score element
     const audienceScoreSelector = 'rt-button[slot="audienceScore"] rt-text';
-    await page.waitForSelector(audienceScoreSelector);
+    await page.waitForSelector(audienceScoreSelector, { timeout: 90000 });
     const rtTextContent = await getTextContentOrDefault(page, audienceScoreSelector, null, 30000);
 
     const content = await page.$eval('rt-text[slot="content"]', element => element.textContent);
@@ -158,7 +158,7 @@ export async function searchGenre(genre) {
     }
 
     const page = await browser.newPage();
-    await page.goto(url, { timeout: 60000 });
+    await page.goto(url, { timeout: 90000 });
 
       // Extraer los primeros 10 elementos de la lista
     const elements = await page.$$eval('.flex-container', elements => {

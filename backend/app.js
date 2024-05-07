@@ -25,13 +25,15 @@ app.post('/:title', async (req, res) => {
     const title = req.params.title;
     const imageSrc =req.body;
     try {
-        // // Verificar si la película ya existe en la base de datos
-        // const existingMovie = await movieModel.findOne({ title: title });
+        // Verificar si la película ya existe en la base de datos
+        const existingMovie = await movieModel.findOne({ title: title });
         
-        // // Si la película existe, enviarla como respuesta
-        // if (existingMovie) {
-        //     res.json(existingMovie);
-        // } else {
+        // Si la película existe, enviarla como respuesta
+        if (existingMovie) {
+            console.log(existingMovie.rating);
+            res.json(existingMovie.rating);
+
+        } else {
             // Si la película no existe, realizar las búsquedas en la web y enviar los resultados
             const list = [
                 await openWebPageT(title),
@@ -49,7 +51,7 @@ app.post('/:title', async (req, res) => {
         
             console.log(list);
             res.json(list);
-        // }
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');

@@ -1,7 +1,7 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
 import logoHome from '../assets/logo.png';
-import { homePageF, movieSearch, genreSearch} from '../routes/service';
+import { homePageF, movieSearch, genreSearch } from '../routes/service';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
@@ -37,38 +37,40 @@ function Home() {
     // Estado para almacenar los datos de las tarjetas
     const [cardsData, setCardsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchInput, setSearchInput] = useState(''); 
+    const [searchInput, setSearchInput] = useState('');
     const override = css`
         display: block;
         margin: 0 auto;
     `;
-   
+
     // Simula una llamada a la API para obtener los datos
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (genre) {
-                    await handleGenreSearch(genre);
-                }
-                if(movie){
+                if (movie) {
                     setSearchInput(movie)
                     console.log(movie)
                     await handleSearch(movie);
                 }
-                else{
+                else if (genre) {
+                    console.log("entro a genero")
+                    await handleGenreSearch(genre);
+                }
+                else if (!genre && !movie){
+                    console.log("entro a else tambien")
                     // Obtener los datos del backend
-                const movies = await homePageF();
-                // Verificar si movies es un array
-                if (Array.isArray(movies)) {
-                    // Asignar los datos al estado
-                    setCardsData(movies);
-                    setIsLoading(false);
-                } else {
-                    console.error('Los datos recibidos no son un array:', movies);
+                    const movies = await homePageF();
+                    // Verificar si movies es un array
+                    if (Array.isArray(movies)) {
+                        // Asignar los datos al estado
+                        setCardsData(movies);
+                        setIsLoading(false);
+                    } else {
+                        console.error('Los datos recibidos no son un array:', movies);
+                    }
                 }
-                }
-                
-                
+
+
             } catch (error) {
                 console.error('Error:', error.message);
             }
@@ -109,10 +111,10 @@ function Home() {
                     <img src={logoHome} />
                 </header>
                 <div>
-                    <input 
-                        type='text' 
-                        placeholder='Search movies...' 
-                        className='input' 
+                    <input
+                        type='text'
+                        placeholder='Search movies...'
+                        className='input'
                         value={searchInput} // Asigna el valor del estado al input
                         onChange={(e) => setSearchInput(e.target.value)} // Actualiza el estado cuando el input cambia
                     />
@@ -120,14 +122,14 @@ function Home() {
                 </div>
                 <div>
                     <button className='button' onClick={() => handleGenreSearch("Comedy")}>Comedy</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Drama")}>Drama</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Action")}>Action</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Romance")}>Romance</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Horror")}>Horror</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Mystery")}>Mystery</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Sci-fi")}>Sci-fi</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Animation")}>Animation</button>
-                    <button className='button' onClick={() =>handleGenreSearch("Fantasy")}>Fantasy</button>
+                    <button className='button' onClick={() => handleGenreSearch("Drama")}>Drama</button>
+                    <button className='button' onClick={() => handleGenreSearch("Action")}>Action</button>
+                    <button className='button' onClick={() => handleGenreSearch("Romance")}>Romance</button>
+                    <button className='button' onClick={() => handleGenreSearch("Horror")}>Horror</button>
+                    <button className='button' onClick={() => handleGenreSearch("Mystery")}>Mystery</button>
+                    <button className='button' onClick={() => handleGenreSearch("Sci-fi")}>Sci-fi</button>
+                    <button className='button' onClick={() => handleGenreSearch("Animation")}>Animation</button>
+                    <button className='button' onClick={() => handleGenreSearch("Fantasy")}>Fantasy</button>
                 </div>
                 {isLoading ? (
                     <div className="loader-container">

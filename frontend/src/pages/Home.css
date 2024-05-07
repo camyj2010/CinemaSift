@@ -1,25 +1,55 @@
+/* Media query para el iPhone X en modo vertical */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+    .content {
+        background-size: 100% auto; /* Ajustar el tamaño del fondo al ancho de la pantalla y mantener la altura original */
+        min-height: auto; /* Restaurar la altura automática en el iPhone X */
+    }
+
+    .buttonSearch, .button {
+        margin-top: 1rem; /* Ajustar el espacio entre los botones en el iPhone X */
+        width: 80%; /* Ajustar el ancho de los botones en el iPhone X */
+    }
+}
+
+/* Media queries para pantallas medianas (tabletas) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .content {
+        background-size: cover; /* Mantener el fondo cubierto en pantallas medianas */
+    }
+
+    .buttonSearch, .button {
+        margin-top: 2rem; /* Restaurar el espacio entre los botones en pantallas medianas */
+        width: 45%; /* Reducir el ancho de los botones en pantallas medianas */
+    }
+}
+
+/* Media queries para pantallas grandes (escritorio) */
+@media only screen and (min-width: 1025px) {
+    .buttonSearch, .button {
+        margin-top: 2rem; /* Restaurar el espacio entre los botones en pantallas grandes */
+        width: 100px; /* Restaurar el ancho de los botones en pantallas grandes */
+    }
+}
+
 main {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(to bottom, #0F1632, #2E4398);
     box-sizing: inherit;
     position: relative;
 }
 
-.buttonSearch {
+.buttonSearch, .button {
     background-color: rgba(248, 246, 246, 0.1);
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100px;
     font-size: 1rem;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
 }
 
 .button {
@@ -44,18 +74,17 @@ main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(to bottom, #0F1632, #2E4398);
+    min-height: 100vh;
+    /* background-image: linear-gradient(to bottom, #0F1632, #2E4398); */
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
+
 .header {
     display: flex;
     justify-content: flex-start;
-    /* Cambiado de 'center' a 'flex-start' para alinear el contenido a la izquierda */
-    ;
     padding: 5px;
     padding-top: 1rem;
 }
@@ -70,11 +99,10 @@ main {
     margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    width: 600px;
 }
 
 .logo {
-    width: 1500px;
+    width: 15%;
     /* Ajusta el tamaño del logotipo según sea necesario */
 }
 .card {
@@ -83,7 +111,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
-    margin-top: 15px;
+    margin-top: 20%;
     margin-left: 55px;
     margin-right: 5px;
 }
@@ -103,11 +131,12 @@ main {
 }
 
 .card-container {
-    display: flex; /* Muestra las tarjetas en línea */
-    flex-direction: row; /* Cambia la dirección del flexbox a horizontal */
-    flex-wrap: nowrap; /* Evita que las tarjetas se envuelvan a la siguiente fila */
-    overflow-x: auto; /* Agrega un scroll horizontal si las tarjetas no caben en el contenedor */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 }
+
 .loader-container {
     display: flex;
     justify-content: center;
