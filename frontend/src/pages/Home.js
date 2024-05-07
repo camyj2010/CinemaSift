@@ -5,6 +5,7 @@ import { homePageF, movieSearch, genreSearch} from '../routes/service';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -29,7 +30,10 @@ function Card({ title, image }) {
 
 
 function Home() {
-
+    const location = useLocation();
+    // console.log=(props.location.state)
+    const genre = location.state ? location.state.genre : null;
+    const movie = location.state ? location.state.movie : null;
     // Estado para almacenar los datos de las tarjetas
     const [cardsData, setCardsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -38,13 +42,21 @@ function Home() {
         display: block;
         margin: 0 auto;
     `;
-
-
+   
     // Simula una llamada a la API para obtener los datos
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Obtener los datos del backend
+                if (genre) {
+                    await handleGenreSearch(genre);
+                }
+                if(movie){
+                    setSearchInput(movie)
+                    console.log(movie)
+                    await handleSearch(movie);
+                }
+                else{
+                    // Obtener los datos del backend
                 const movies = await homePageF();
                 // Verificar si movies es un array
                 if (Array.isArray(movies)) {
@@ -54,6 +66,9 @@ function Home() {
                 } else {
                     console.error('Los datos recibidos no son un array:', movies);
                 }
+                }
+                
+                
             } catch (error) {
                 console.error('Error:', error.message);
             }
@@ -62,10 +77,10 @@ function Home() {
         fetchData(); // Llamar a la función para obtener los datos
     }, []);
 
-    const handleSearch = async () => {
+    const handleSearch = async (movie) => {
         try {
             setIsLoading(true);
-            const searchResult = await movieSearch(searchInput); // Invoca la función movieSearch con el valor del input
+            const searchResult = await movieSearch(movie); // Invoca la función movieSearch con el valor del input
             setCardsData(searchResult);
             setIsLoading(false);
         } catch (error) {
@@ -101,7 +116,7 @@ function Home() {
                         value={searchInput} // Asigna el valor del estado al input
                         onChange={(e) => setSearchInput(e.target.value)} // Actualiza el estado cuando el input cambia
                     />
-                    <button className='buttonSearch' onClick={handleSearch}>Search</button> {/* Invoca la función handleSearch al hacer clic */}
+                    <button className='buttonSearch' onClick={() => handleSearch(searchInput)}>Search</button>
                 </div>
                 <div>
                     <button className='button' onClick={() => handleGenreSearch("Comedy")}>Comedy</button>
