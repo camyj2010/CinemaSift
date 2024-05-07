@@ -35,7 +35,7 @@ function Movie() {
             try {
                 // Obtener los datos del backend
                 console.log("hola empece")
-                const ratings = await MoviePage(title);
+                const ratings = await MoviePage(title,image);
                 // Verificar si movies es un array
                 if (Array.isArray(ratings)) {
                     // Asignar los datos al estado

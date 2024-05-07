@@ -103,7 +103,7 @@ export async function searchName(name) {
     const page = await browser.newPage();
     await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
     await page.type('[data-qa="search-input"]', name);
-    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter'); 
 
     // Esperar a que el primer elemento de la lista esté disponible
     const firstResultSelector = 'search-page-media-row[data-qa="data-row"]:first-child a[data-qa="info-name"]';
