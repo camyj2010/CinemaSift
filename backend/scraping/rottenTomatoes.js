@@ -21,26 +21,61 @@ async function getTextContentOrDefault(page, selector, defaultValue = null, time
     }
 }
 
+// export async function ImagesHome() {
+//     const browser = await puppeteer.launch({
+//         headless: true
+//     });
+
+//     const page = await browser.newPage();
+//     await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
+
+//     // Esperar a que los elementos deseados estén disponibles en el DOM
+//     await page.waitForSelector('.dynamic-poster-list');
+//     console.log("1");
+
+//     const data = await page.evaluate(() => {
+//         const itemsArray = [];
+//         const carouselItems = document.querySelectorAll('.dynamic-poster-list tiles-carousel-responsive-item-deprecated.visible');
+
+//         carouselItems.forEach((item, index) => {
+//             if (index < 9) { // Solo queremos los primeros 5 elementos
+//                 const title = item.querySelector('a[slot="caption"] .p--small').innerText.trim();
+//                 const imageSrc = item.querySelector('rt-img[slot="image"]').getAttribute('src');
+//                 itemsArray.push({ title, imageSrc });
+//             }
+//         });
+
+//         return itemsArray;
+//     });
+
+//     // Imprimir los títulos y enlaces de las imágenes extraídos
+//     console.log('Títulos y enlaces de las primeras 5 imágenes del carousel:');
+//     console.log(data);
+
+//     // Cerrar el navegador
+//     await browser.close();
+//     return data;
+// }
 export async function ImagesHome() {
     const browser = await puppeteer.launch({
         headless: true
     });
 
     const page = await browser.newPage();
-    await page.goto("https://www.rottentomatoes.com", { timeout: 60000 });
+    await page.goto("https://www.rottentomatoes.com/browse/movies_in_theaters/sort:popular", { timeout: 60000 });
 
     // Esperar a que los elementos deseados estén disponibles en el DOM
-    await page.waitForSelector('.dynamic-poster-list');
+    await page.waitForSelector('.js-tile-link');
     console.log("1");
 
     const data = await page.evaluate(() => {
         const itemsArray = [];
-        const carouselItems = document.querySelectorAll('.dynamic-poster-list tiles-carousel-responsive-item-deprecated.visible');
+        const tileLinks = document.querySelectorAll('.js-tile-link');
 
-        carouselItems.forEach((item, index) => {
-            if (index < 6) { // Solo queremos los primeros 5 elementos
-                const title = item.querySelector('a[slot="caption"] .p--small').innerText.trim();
-                const imageSrc = item.querySelector('rt-img[slot="image"]').getAttribute('src');
+        tileLinks.forEach((link, index) => {
+            if (index < 25) { // Solo queremos los primeros 5 elementos
+                const title = link.querySelector('[data-qa="discovery-media-list-item-title"]').innerText.trim();
+                const imageSrc = link.querySelector('rt-img[slot="image"]').getAttribute('src');
                 itemsArray.push({ title, imageSrc });
             }
         });
