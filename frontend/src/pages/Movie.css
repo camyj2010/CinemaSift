@@ -1,3 +1,13 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to bottom, #0F1632, #2E4398);
+    color: white;
+}
 main {
     width: 100%;
     min-height: 100vh;

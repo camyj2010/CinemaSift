@@ -15,9 +15,15 @@ export const homePageF = async () => {
         console.error('Error:', error.message);
     }
 }
-export const MoviePage = async (name) => {
+export const MoviePage = async (title, imageSrc) => {
     try {
-        const response = await fetch(`${backendserver}/${name}`);
+        const response = await fetch(`${backendserver}/${title}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ imageSrc: imageSrc })
+        });
         if (response.ok) {
             const data = await response.json();
             return data;
