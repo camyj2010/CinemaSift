@@ -6,9 +6,36 @@ import { openWebPageT, ImagesHome, searchName, searchGenre} from './scraping/rot
 import {openWebPageL} from './scraping/letterboxd.js';
 import {openWebPageI} from './scraping/imdb.js';
 import cors from 'cors';
+import cron from 'node-cron';
 
 const app = express();
 app.use(cors());
+
+// Actualización periódica de las películas
+cron.schedule('0 20 * * *', async () => {
+    try {
+        // Realizar scraping y actualizar la información en la base de datos
+        const moviesToUpdate = await movieModel.find();
+        for (const movie of moviesToUpdate) {
+            const title = movie.title;
+            const list = [
+                await openWebPageT(title),
+                await openWebPageL(title),
+                await openWebPageI(title)
+            ];
+            // Actualizar la información de la película en la base de datos
+            await movieModel.findOneAndUpdate(
+                { title: title },
+                { rating: list }
+            );
+        }
+        console.log('Información de películas actualizada con éxito.');
+    } catch (error) {
+        console.error('Error al actualizar la información de películas:', error);
+    }
+});
+
+
 // Ruta de ejemplo
 
 app.get('/', async (req, res) => {
@@ -20,7 +47,7 @@ app.get('/', async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 });
-
+//Funcion de informacion de peliculas
 app.post('/:title', async (req, res) => {
     const title = req.params.title;
     const imageSrc =req.body;

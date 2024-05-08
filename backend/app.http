@@ -15,5 +15,5 @@ GET http://localhost:3001/search/Challengers
 Content-Type: application/json
 
 ###Search by name
-GET http://localhost:3001/search-genre/Comedy
+GET https://cinemasift-backend.onrender.com/search-genre/Comedy
 Content-Type: application/json
