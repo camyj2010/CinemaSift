@@ -1,5 +1,6 @@
 // app.js
 import express from 'express';
+import bodyParser from 'body-parser';
 import dbconnect from'./config.js';
 import movieModel from './movieModel.js';
 import { openWebPageT, ImagesHome, searchName, searchGenre} from './scraping/rottenTomatoes.js'; 
@@ -8,7 +9,10 @@ import {openWebPageI} from './scraping/imdb.js';
 import cors from 'cors';
 import cron from 'node-cron';
 
+
+
 const app = express();
+app.use(bodyParser.json());
 app.use(cors());
 
 // Actualización periódica de las películas
@@ -36,21 +40,34 @@ cron.schedule('0 20 * * *', async () => {
 });
 
 
-// Ruta de ejemplo
+// // Ruta de ejemplo
 
+// app.get('/', async (req, res) => {
+//     try {
+//         const data = await ImagesHome(); // Llama a la función para obtener la data
+//         res.json(data); // Envía la data como respuesta JSON
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Error interno del servidor');
+//     }
+// });
 app.get('/', async (req, res) => {
     try {
-        const data = await ImagesHome(); // Llama a la función para obtener la data
-        res.json(data); // Envía la data como respuesta JSON
+        // Consultar todas las películas en la base de datos y proyectar solo los campos 'title' y 'imageSrc'
+        const movies = await movieModel.find({}, { title: 1, imageSrc: 1, _id: 0 });
+        console.log(movies)
+        res.json(movies); // Envía la lista de películas como respuesta JSON
     } catch (err) {
         console.error(err);
         res.status(500).send('Error interno del servidor');
     }
 });
 //Funcion de informacion de peliculas
+
 app.post('/:title', async (req, res) => {
     const title = req.params.title;
-    const imageSrc =req.body;
+    const imageSrc =req.body.imageSrc;
+    console.log(imageSrc + "holaaa")
     try {
         // Verificar si la película ya existe en la base de datos
         const existingMovie = await movieModel.findOne({ title: title });
@@ -75,6 +92,7 @@ app.post('/:title', async (req, res) => {
                 genre: "", // Supongo que la información de género viene de openWebPageT
                 rating: list // Supongo que la información de rating viene de openWebPageL e openWebPageI
             });
+            console.log(imageSrc);
         
             console.log(list);
             res.json(list);
