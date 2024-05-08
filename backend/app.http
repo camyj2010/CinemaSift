@@ -3,13 +3,17 @@ GET http://localhost:3001/
 Content-Type: application/json
 
 ###Search all information
-GET http://localhost:3001/challengers
+POST http://localhost:3001/Challengers
+Content-Type: application/json
+
+{
+    "imageSrc":"https://resizing.flixster.com/dMJO96IcJPA2EBIn3E-Fp8NdbBQ=/206x305/v2/https://resizing.flixster.com/9G1lxDNFoAZy77XHEELQIrTB7_0=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzhjZDliZWNjLTgzNGQtNDJmNC1iYjlhLTE4YjNlYWY1MGQ3NC5qcGc="
+}
+
+###Search by name
+GET http://localhost:3001/search/Challengers
 Content-Type: application/json
 
 ###Search by name
-GET http://localhost:3001/search/challengers
-Content-Type: application/json
-
-###Search by name
-GET http://localhost:3001/search-genre/Comedy
+GET https://cinemasift-backend.onrender.com/search-genre/Comedy
 Content-Type: application/json
